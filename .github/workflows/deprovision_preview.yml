@@ -1,0 +1,39 @@
+name: Deprovision staging
+
+on:
+  pull_request:
+    types: ['closed']
+
+env:
+  APTIBLE_ENVIRONMENT: preview-apps
+  IMAGE_NAME: aptible/deploy-demo-app
+  APTIBLE_APP_NAME: demo-pr-${{ github.event.number }}
+  TAG: pr-${{ github.event.number }}
+  CLI_URL: https://omnibus-aptible-toolbelt.s3.amazonaws.com/aptible/omnibus-aptible-toolbelt/latest/aptible-toolbelt_latest_ubuntu-1604_amd64.deb
+  
+
+jobs:
+  deprovision-app:
+    name: Deprovision Review App and Databases
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Install aptible CLI
+        run: |
+          PKG="$(mktemp)"
+          curl -fsSL "${{ env.CLI_URL }}" > "$PKG"
+          sudo dpkg -i "$PKG"
+          rm "$PKG"
+
+          aptible login --email "${{ vars.APTIBLE_ROBOT_USERNAME }}" --password "${{ secrets.APTIBLE_ROBOT_PASSWORD }}"
+
+      - name: Deprovision app
+        run: |
+          aptible apps:deprovision --app ${{ env.APTIBLE_APP_NAME }} --environment ${{ env.APTIBLE_ENVIRONMENT }} || exit 0
+
+      - name: Deprovision PostgreSQL Database
+        run: |
+          aptible db:deprovision ${{ env.APTIBLE_APP_NAME }}-pg --environment ${{ env.APTIBLE_ENVIRONMENT }} || exit 0
+
+      - name: Deprovision Redis Database
+        run: |
+          aptible db:deprovision ${{ env.APTIBLE_APP_NAME }}-redis --environment ${{ env.APTIBLE_ENVIRONMENT }} || exit 0

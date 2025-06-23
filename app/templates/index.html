@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Demo App</title>
+    <script src="https://use.typekit.net/pqi8lpw.js"></script>
+    <script>try { Typekit.load({ async: false }); } catch(e) {}</script>
+    <link rel="stylesheet" href="static/all.css" />
+    <link rel="shortcut icon" href="static/favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNTUwcHgiIGhlaWdodD0iNTAwcHgiIHZpZXdCb3g9IjAgMCA1NTAgNTAwIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA1NS4yICg3ODE4MSkgLSBodHRwczovL3NrZXRjaGFwcC5jb20gLS0+CiAgICA8dGl0bGU+QXJ0Ym9hcmQgQ29weSAyPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGcgaWQ9IkFydGJvYXJkLUNvcHktMiIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9Ikdyb3VwLTItQ29weS0yIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMy4wMDAwMDAsIDM2LjAwMDAwMCkiIGZpbGw9IiNGRkI2MDciIGZpbGwtcnVsZT0ibm9uemVybyI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yNzcuMTk4OTI0LDEwMC43MDczMjggTDI3Ny4xOTg5MjQsNDI4IEwzNTIuODAwMzA4LDQyOCBMMzUyLjgwMDMwOCwyNzYuOTQyMDggTDUwNCw0MjggTDUwNCwzMjcuMjk1NzQ0IEwyNzcuMTk4OTI0LDEwMC43MDczMjggTTM1Mi44MDAzMDgsMCBMMjUxLjk5ODQ2MiwwIEw1MDQsMjUxLjc2NTI0OCBMNTA0LDE1MS4wNjA5OTIgTDM1Mi44MDAzMDgsMCBNMCwzMjcuMjk1NzQ0IEwwLDQyOCBMMTUxLjE5OTY5MiwyNzYuOTQyMDggTDE1MS4xOTk2OTIsNDI4IEwyMjYuODAxMDc2LDQyOCBMMjI2LjgwMTA3NiwxMDAuNzA3MzI4IEwwLDMyNy4yOTU3NDQgTTAsMTUxLjA2MDk5MiBMMCwyNTEuNzY1MjQ4IEwyNTEuOTk4NDYyLDAgTDE1MC4yNTU1MjEsMCBMMCwxNTEuMDYwOTkyIiBpZD0iU2hhcGUiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg=="
+           alt="Aptible logo"
+           width="139px"
+           style="padding-top:30px;"/>
+       <h1>Demo App</h1>
+    </header>
+
+    <section class="app-input">
+      <p class="welcome__subtitle">
+        This application allows you to record a message. This message is written
+        into a Redis queue, and then a background worker inserts the message
+        into a PostgreSQL database.
+      </p>
+
+      <form method="POST">
+        {% for message in form.message.errors %}
+          <div class="form-error">{{ message }}</div>
+        {% endfor %}
+        <fieldset>
+          {{ form.message }}
+          {{ form.submit }}
+          <p class="footnote">
+            <label class="label-link" for="modal-checklist">
+              Setup Checklist ({{checklist_complete}}/{{checklist_len}})</label>
+          </p>
+        </fieldset>
+      </form>
+
+
+      <p>
+        The last 20 messages are pulled from the database and displayed below.
+        You may need to refresh to see messages inserted by the worker.
+      </p>
+    </section>
+
+    <section class="app-log">
+      <table>
+        <tbody>
+        {% for message in messages %}
+          <tr>
+            <td>{{ message.time }}</td>
+            <td>{{ message.text }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <div class="modal">
+      <input class="modal-open" type="checkbox" id="modal-checklist" hidden/>
+      <div class="modal-wrap" aria-hidden="true" role="dialog">
+        <label class="modal-overlay" for="modal-checklist"></label>
+        <div class="modal-dialog">
+          <div class="modal-header">
+            <h3 class="modal-header__title">Setup Checklist</h3>
+            <label class="btn-close" for="modal-checklist" aria-hidden="true">×</label>
+            {% for step in status %}
+              <a class="checklist__status"
+                 data-status="{{step.status}}"
+                 href="https://www.aptible.com/{{ step.docpath }}">{{ step.description }}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
