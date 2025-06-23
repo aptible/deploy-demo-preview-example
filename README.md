@@ -1,7 +1,6 @@
-<<<<<<< HEAD
+
 # deploy-demo-preview-example
 Example showing the use of Github actions to deploy an app to preview changes and spin down the app once the PR is merged
-=======
 ## GitHub Workflows
 
 This repository includes two GitHub workflows to automate preview deployments of your application using the [deploy demo app](https://github.com/aptible/deploy-demo-app) as an example:
@@ -64,5 +63,4 @@ The `deprovision_preview.yml` workflow handles cleanup of preview resources when
 
 Copyright (c) 2024 [Aptible](https://www.aptible.com). All rights reserved.
 
-[<img src="https://avatars2.githubusercontent.com/u/1580788?v=4&s=60" />](https://github.com/UserNotFound)
->>>>>>> eddbf47 (initial import)
+
