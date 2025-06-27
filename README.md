@@ -49,7 +49,6 @@ The `deprovision_preview.yml` workflow handles cleanup of preview resources when
   - `APTIBLE_ENVIRONMENT`: The Aptible environment to deploy to (default: `preview-apps`)
   - `APTIBLE_APP_NAME`: Name pattern for the Aptible app (default: `demo-pr-${{ github.event.number }}`)
 
-
 ## Considerations
 
 These workflows cover the simplest use case so they can be customized further using the options provided by using different [events to trigger](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)the workflows. The [push](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push) and [pull_request](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)event documentation in particular includes useful examples for common use cases.
