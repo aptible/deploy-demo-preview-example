@@ -1,13 +1,15 @@
 
 # deploy-demo-preview-example
-Example use of Github actions to automatically deploy an app to preview changes and spin down the app once the PR is closed.
+
+This is an example of using Github actions to automatically deploy an app to preview changes and spin down the app once the PR is closed.
+
 ## GitHub Workflows
 
 This repository includes two GitHub workflows to automate preview deployments of your application using the [deploy demo app](https://github.com/aptible/deploy-demo-app) as an example:
 
 ### 1. Preview Deployment (preview.yml)
 
-The `preview.yml` workflow automatically deploys a preview app for every pull request. This allows reviewers to deploy the changes introduced in their PR to a separate app in the Aptible environment of their choice to complete the necessary testing before merging their changes to main. 
+The `preview.yml` workflow automatically deploys a preview app for every pull request, enabling reviewers to test the changes introduced in the PR in a separate app in a selected Aptible environment.
 
 **What this workflow does:**
 - Triggers on pull request creation and when pushing changes to the pull request
@@ -23,7 +25,7 @@ The `preview.yml` workflow automatically deploys a preview app for every pull re
   - `secrets.APTIBLE_ROBOT_PASSWORD`: Aptible robot account password
   - `secrets.DOCKERHUB_USERNAME`: DockerHub username for pushing images and deploying to Aptible
   - `secrets.DOCKERHUB_TOKEN`: DockerHub access token for authentication
-  - `secrets.DOCKERHUB_PASSWORD`: DockerHub password for Deplpy to Aptible step
+  - `secrets.DOCKERHUB_PASSWORD`: DockerHub password for Deploy to Aptible step
 
 - **Configurable environment variables** (can be modified in the workflow file):
   - `APTIBLE_ENVIRONMENT`: The Aptible environment to deploy to (default: `preview-apps`)
@@ -33,7 +35,7 @@ The `preview.yml` workflow automatically deploys a preview app for every pull re
 
 ### 2. Preview Cleanup (deprovision_preview.yml)
 
-The `deprovision_preview.yml` workflow handles cleanup of preview resources when a pull request is closed.
+The `deprovision_preview.yml` workflow handles the cleanup of preview resources when a pull request is closed.
 
 **What this workflow does:**
 - Triggers when a pull request is closed (merged or rejected)
@@ -51,7 +53,7 @@ The `deprovision_preview.yml` workflow handles cleanup of preview resources when
 
 ## Considerations
 
-These workflows cover the simplest use case so they can be customized further using the options provided by using different [events to trigger](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)the workflows. The [push](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push) and [pull_request](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)event documentation in particular includes useful examples for common use cases.
+These workflows cover the simplest use case, so they can be customized further using the options provided by using different [events to trigger](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)the workflows. The [push](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push) and [pull_request](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)event documentation in particular includes practical examples for everyday use cases.
 
 ## Copyright
 
