@@ -53,7 +53,7 @@ The `deprovision_preview.yml` workflow handles the cleanup of preview resources 
 
 ## Considerations
 
-These workflows cover the simplest use case, so they can be customized further using the options provided by using different [events to trigger](https://docs.github.com/en/actions/reference/events-that-trigger-workflows)the workflows. The [push](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push) and [pull_request](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request)event documentation in particular includes practical examples for everyday use cases.
+These workflows cover the simplest use case, so they can be customized further using the options provided by using different [events to trigger](https://docs.github.com/en/actions/reference/events-that-trigger-workflows) the workflows. The [push](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push) and [pull_request](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request) event documentation in particular includes practical examples for everyday use cases.
 
 ## Copyright
 
